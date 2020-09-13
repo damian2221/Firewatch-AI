@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Bootstrap CSS -->
+    <!-- <link rel="stylesheet" type="text/css" href="/firewatchV2/public/stylesheets/firewatch.css"> -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+    <style type="text/css">
+        #map {
+            height: 700px;
+            /* The height is 400 pixels */
+            width: 100%;
+            /* The width is the width of the web page */
+            margin-left: 0px;
+            margin-right: 0px;
+            padding-left: 0px;
+            padding-right: 0px;
+        }
+        
+        #map.initMap {
+            padding-left: 0px;
+            padding-right: 0px;
+        }
+        
+        .navbar {
+            /*background-image: url("fire3.jpg");*/
+            /*background-repeat: repeat;*/
+            /*background-position: bottom;*/
+            /*background-attachment: fixed;*/
+        }
+        
+        #imageToFormat {
+            height: 20px;
+        }
+        
+        #dashboard {
+            /*background-image: url("file:///Users/zuziamatysiak/Desktop/summer/pennapps/FireWatchAI/html/fire5.jpeg");*/
+            background: #b0550b;
+            background-position: bottom;
+            color: white;
+            text-shadow: 0px 4px 3px rgba(0, 0, 0, 0.4), /*second shadow*/
+            0px 8px 13px rgba(0, 0, 0, 0.1), /* rgba adds gray shadow*/
+            0px 18px 23px rgba(0, 0, 0, 0.1);
+            font-size: 1.2rem;
+        }
+        
+        #dash {
+            padding-top: 20px;
+            font-size: 1.5rem;
+            text-shadow: 0px 4px 3px rgba(0, 0, 0, 0.4), /*second shadow*/
+            0px 8px 13px rgba(0, 0, 0, 0.1), /* rgba adds gray shadow*/
+            0px 18px 23px rgba(0, 0, 0, 0.1);
+        }
+        
+        #dash2 {
+            font-size: 1.5rem;
+            text-shadow: 0px 4px 3px rgba(0, 0, 0, 0.4), /*second shadow*/
+            0px 8px 13px rgba(0, 0, 0, 0.1), /* rgba adds gray shadow*/
+            0px 18px 23px rgba(0, 0, 0, 0.1);
+        }
+        
+        #content {
+            /*text shadow offests for x and y*/
+            text-shadow: 0px 4px 3px rgba(0, 0, 0, 0.4), /*second shadow*/
+            0px 8px 13px rgba(0, 0, 0, 0.1), /* rgba adds gray shadow*/
+            0px 18px 23px rgba(0, 0, 0, 0.1);
+            /*font-family: 'EB Garamond';*/
+        }
+        
+        #description {
+            color: white;
+            font-size: 2rem;
+            /*font-family: 'EB Garamond';*/
+        }
+        
+        #header {
+            background: url("https://images.unsplash.com/photo-1463950922781-0e6d07cbd146?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80") center center / cover no-repeat;
+            /*   or forest2 jpeg*/
+            color: white;
+            padding-top: 200px;
+            padding-bottom: 200px;
+            margin-bottom: 0px;
+        }
+        
+        #general {
+            background-color: orange;
+            color: white;
+            font-size: 1rem;
+        }
+        
+        #general:hover {
+            background-color: red;
+        }
+        
+        .slidecontainer {
+            width: 100%;
+            /* Width of the outside container */
+        }
+        
+        .navbar.scrolled {
+            background-image: url("https://images.unsplash.com/photo-1560698711-6df2370d7d62?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80");
+            /*  how long should the transition be*/
+            transition: background 500ms;
+        }
+        
+        .slider {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 15px;
+            border-radius: 5px;
+            background: #d3d3d3;
+            outline: none;
+            opacity: 0.7;
+            -webkit-transition: .2s;
+            transition: opacity .2s;
+        }
+        
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background: white;
+            cursor: pointer;
+        }
+        
+        .slider::-moz-range-thumb {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background: #4CAF50;
+            cursor: pointer;
+        }
+        
+        .image {
+            width: 100%;
+            height: 50vw;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        #colorChange {
+            background: white;
+            border-color: #b0550b;
+            color: #b0550b;
+            ;
+        }
+        
+        #colorChange:hover {
+            background: #b0550b;
+            color: white;
+        }
+        
+        @media (min-width: 992px) {
+            .image {
+                width: 100%;
+                height: 15vw;
+                background-size: cover;
+                background-position: center;
+            }
+        }
+        
+        #resources {
+            margin-top: 100px;
+            margin-bottom: 100px;
+        }
+        
+        #res {
+            font-size: 2rem;
+        }
+        
+        #submit {
+            background: #b0550b;
+            color: white;
+            border-color: white;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            margin-left: 30px;
+        }
+        
+        #submit:hover {
+            background: #873f08;
+            border-color: #873f08;
+            color: white;
+        }
+        
+        #clear {
+            background: #b0550b;
+            color: white;
+            border-color: white;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            margin-left: 30px;
+        }
+        
+        #clear:hover {
+            background: #873f08;
+            border-color: #873f08;
+            color: white;
+        }
+
+        #map {
+            height: 700px;
+            /* The height is 400 pixels */
+            width: 100%;
+            /* The width is the width of the web page */
+            margin-left: 0px;
+            margin-right: 0px;
+            padding-left: 0px;
+            padding-right: 0px;
+        }
+        
+        #map.initMap {
+            padding-left: 0px;
+            padding-right: 0px;
+        }
+        
+        .navbar {
+            /*background-image: url("fire3.jpg");*/
+            /*background-repeat: repeat;*/
+            /*background-position: bottom;*/
+            /*background-attachment: fixed;*/
+        }
+        
+        #dashboard {
+            /*background-image: url("file:///Users/zuziamatysiak/Desktop/summer/pennapps/FireWatchAI/html/fire5.jpeg");*/
+            background: #b0550b;
+            background-position: bottom;
+            color: white;
+            text-shadow: 0px 4px 3px rgba(0, 0, 0, 0.4), /*second shadow*/
+            0px 8px 13px rgba(0, 0, 0, 0.1), /* rgba adds gray shadow*/
+            0px 18px 23px rgba(0, 0, 0, 0.1);
+            font-size: 1.2rem;
+        }
+        
+        #dash {
+            padding-top: 60px;
+            font-size: 1.5rem;
+            text-shadow: 0px 4px 3px rgba(0, 0, 0, 0.4), /*second shadow*/
+            0px 8px 13px rgba(0, 0, 0, 0.1), /* rgba adds gray shadow*/
+            0px 18px 23px rgba(0, 0, 0, 0.1);
+        }
+        
+        #dash2 {
+            font-size: 1.5rem;
+            text-shadow: 0px 4px 3px rgba(0, 0, 0, 0.4), /*second shadow*/
+            0px 8px 13px rgba(0, 0, 0, 0.1), /* rgba adds gray shadow*/
+            0px 18px 23px rgba(0, 0, 0, 0.1);
+        }
+        
+        #content {
+            /*text shadow offests for x and y*/
+            text-shadow: 0px 4px 3px rgba(0, 0, 0, 0.4), /*second shadow*/
+            0px 8px 13px rgba(0, 0, 0, 0.1), /* rgba adds gray shadow*/
+            0px 18px 23px rgba(0, 0, 0, 0.1);
+            /*font-family: 'EB Garamond';*/
+        }
+        
+        #description {
+            color: white;
+            font-size: 2rem;
+            /*font-family: 'EB Garamond';*/
+        }
+        
+        #header {
+            background: url("https://images.unsplash.com/photo-1463950922781-0e6d07cbd146?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80") center center / cover no-repeat;
+            /*   or forest2 jpeg*/
+            
+            color: white;
+            padding-top: 200px;
+            padding-bottom: 200px;
+            margin-bottom: 0px;
+        }
+        
+        #general {
+            background-color: orange;
+            color: white;
+            font-size: 1rem;
+        }
+        
+        #general:hover {
+            background-color: red;
+        }
+        
+        .slidecontainer {
+            width: 100%;
+            /* Width of the outside container */
+        }
+        
+        .navbar.scrolled {
+            /*background-image: url("https://images.unsplash.com/photo-1560698711-6df2370d7d62?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80");*/
+            background: #b0550b;
+            /*  how long should the transition be*/
+            transition: background 500ms;
+        }
+        
+        .slider {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 15px;
+            border-radius: 5px;
+            background: #d3d3d3;
+            outline: none;
+            opacity: 0.7;
+            -webkit-transition: .2s;
+            transition: opacity .2s;
+        }
+        
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background: white;
+            cursor: pointer;
+        }
+        
+        .slider::-moz-range-thumb {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background: #4CAF50;
+            cursor: pointer;
+        }
+        
+        .button.play {
+            box-sizing: border-box;
+            width: 25px;
+            height: 25px;
+            border-width: 25px 0px 25px 25px;
+            border-color: transparent transparent transparent #202020;
+        }
+        
+        .image {
+            width: 100%;
+            height: 50vw;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        #colorChange {
+            background: white;
+            border-color: #b0550b;
+            color: #b0550b;
+            ;
+        }
+        
+        #colorChange:hover {
+            background: #b0550b;
+            color: white;
+        }
+        
+        @media (min-width: 992px) {
+            .image {
+                width: 100%;
+                height: 15vw;
+                background-size: cover;
+                background-position: center;
+            }
+        }
+        
+        #resources {
+            margin-top: 100px;
+            margin-bottom: 100px;
+        }
+        
+        #res {
+            font-size: 2rem;
+        }
+    </style>
+    <title>Firewatch AI</title>
+
+    <!-- Bootstrap CSS -->
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+
+
+    <title>Firewatch AI</title>
+
+
+    <link rel="shortcut icon" href="/firewatchV2/assets/ico.ico" type="image/x-icon" />
+    <title>Firewatch AI</title>
+
+
+</head>
+
+<body>
+    <div id="loading-overlay" style="
+    display: none;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    z-index: 1000000;
+    background-color: rgba(69, 69, 69, 0.58);
+    color: white;
+    font-size: 80px;
+    text-align: center;
+    vertical-align: center;
+    padding-top: 300px;
+">Loading...</div>
+    <nav id="mainNavbar" class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <a class="navbar-brand" href="#">Firewatch AI</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/resources"><span class="sr-only"></span>
+                    <img id = "imageToFormat"
+                      src="https://i.ibb.co/xDZD5Lv/emergency.png">
+                    Emergency contact</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <section id="header" class="jumbotron text-center">
+        <div class="container">
+            <h1 class="display-3" style="text-shadow: 2px 2px 1px black" id="content">Firewatch AI</h1>
+            <p class="lead" style="text-shadow: -2px -2px 1px black" id="description">Welcome! This tool was developed to serve as a predictor and visualizator for wildfires within the US.</p>
+
+        </div>
+    </section>
+
+    <section class="mapAndDashboard">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-9 px-0">
+                    <!-- map goes here -->
+                    <!-- <img class = "img" src="mapJustForExample.jpg"> -->
+                    <div class="px-0 py-0" id="map"></div>
+                </div>
+                <div class="col-lg-3" id="dashboard">
+                    <p class="text-center" id="dash"> Dashboard</p>
+                    <p id="location">Location chosen: Click on the map!</p>
+                    <p id="tempValue">Temparature: - F</p>
+                    <div class="slidecontainer">
+                        <input type="range" oninput="tempChanged()" onchange="tempChanged()" min="1" max="120" value="60" class="slider" id="temp">
+                    </div>
+                    <div>
+                        <p id="windValue">Wind: - mph </p>
+                    </div>
+                    <div class="slidecontainer" id="wind">
+                        <input type="range" oninput="windChanged()" onchange="windChanged()" min="0" max="60" step="0.1" value="30" class="slider" id="wi">
+                    </div>
+                    <p id="precipValue">Precipitation: - inch</p>
+                    <div class="slidecontainer">
+                        <input type="range" oninput="precipChanged()" onchange="precipChanged()" min="0" max="20" step="0.1" value="0" class="slider" id="rain">
+                    </div>
+                    <div id="buttons">
+                        <a onclick="predictSpread()" class="align-self-center btn btn-sm" id="submit">Predict fire spread</a>
+                        <a onclick="clearMarkers()" class="align-self-center btn btn-sm" id="clear">Clear markers</a>
+                    </div>
+
+                    <div style="display:flex">
+                    <p id = "timeValue" style="flex:1">Time: - min</p>
+                    <img id="playerIcon"
+                         src="https://iconsplace.com/wp-content/uploads/_icons/ffffff/256/png/play-icon-18-256.png" style="
+                        width: 25px;
+                        height: 25px;
+                        cursor: pointer;
+                    " onclick="startPlayer()"></div>
+                    <div class="slidecontainer">
+                        <input type="range" onchange="minutesChanged()" oninput="minutesChanged()" min="1" max="20160" value="1" class="slider" id="myRange">
+                    </div>
+
+                    <p class="text-center" id="dash2">Outcomes</p>
+                        <p id="speed">Average speed: - mph</p>
+                        <!-- <p><i class="fas fa-fire"></i> <i class="fas fa-fire"></i> <i class="fas fa-fire"></i></p> -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="resources">
+        <div class="container">
+            <p class="text-center" id="res">If you are in the area that is at risk, please take your time to look at the resources provided below.</p>
+            <div class="row">
+                <div class="col-lg-4 mb-4 d-flex">
+                    <div class="card">
+                        <img src="https://www.readyforwildfire.org/wp-content/uploads/2-1.png" class="card-img-top image">
+                        <div class="card-body d-flex flex-column justify-content-between">
+                            <h5 class="title">Evacuation Guide</h5>
+                            <p class="card-text">Visit the following resources for more information on what to do in case of wildfire. </p>
+                            <a href="https://www.readyforwildfire.org/prepare-for-wildfire/go-evacuation-guide/" class="align-self-end btn btn-sm" id="colorChange">Visit Me</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 mb-4 d-flex">
+                    <div class="card">
+                        <img src="https://images.unsplash.com/photo-1519003722824-194d4455a60c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1510&q=80" class="card-img-top image">
+                        <div class="card-body d-flex flex-column justify-content-between">
+                            <h5 class="title">Transportation Impact</h5>
+                            <p class="card-text">Here you can find more information about impacts wildfires have on transportation. </p>
+                            <a href="http://quickmap.dot.ca.gov/" class="align-self-end btn btn-sm" id="colorChange">Visit Me</a>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-lg-4 mb-4 d-flex">
+                    <div class="card">
+                        <img src="https://images.unsplash.com/photo-1521931961826-fe48677230a5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80" class="card-img-top image">
+                        <div class="card-body d-flex flex-column justify-content-between">
+                            <h5 class="title">Sign Up for Emergency Alerts</h5>
+                            <p class="card-text">If you are in California to receive alerts you can sign up here. You can find similar emergency alerts for other states as well.</p>
+                            <a href="https://incidents.readyforwildfire.org/" class="align-self-end btn btn-sm" id="colorChange">Visit Me</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script>
+        $(function() {
+            $(document).scroll(function() {
+                var $nav = $("#mainNavbar");
+                $nav.toggleClass("scrolled", $(this).scrollTop() > $nav.height())
+            })
+
+        })
+    </script>
+
+
+
+    </script>
+       <script>
+
+           const startPlayer = () => {
+             if (!circle) {
+               return alert("You have to start the prediction first!");
+             }
+             if (player) {
+               return stopPlayer();
+             }
+             $("#playerIcon").attr('src',
+               'https://www.shareicon.net/data/256x256/2016/03/27/465540_media_256x256.png');
+             player = setInterval(() => {
+               if (parseInt($("#myRange").val()) >= 20160) {
+                 return stopPlayer();
+               }
+               $("#myRange").val(parseInt($("#myRange").val()) + 6);
+               minutesChanged();
+             }, 1);
+           };
+
+           const stopPlayer = () => {
+             if (player) {
+               $("#playerIcon").attr('src',
+                 'https://iconsplace.com/wp-content/uploads/_icons/ffffff/256/png/play-icon-18-256.png');
+               clearInterval(player);
+               player = undefined;
+             }
+           }
+           const minutesChanged = () => {
+             let minutes = $("#myRange").val();
+             let hours = Math.floor(minutes / 60);
+             let days = Math.floor(hours / 24);
+             minutes -= hours * 60;
+             hours -= days * 24;
+             let timeString = "";
+             if (days) {
+               timeString = days + " days ";
+             }
+             if (hours) {
+               timeString += hours + " h ";
+             }
+             timeString += minutes + " min";
+
+             $("#timeValue").text(`Time: ${timeString}`);
+             if (!circle) {
+               return;
+             }
+             circle.setRadius(speed/20160 * Math.pow($("#myRange").val(), 2));
+             if (map.getZoom() >= 12 && circle.getRadius() >= 16500) {
+               map.setZoom(11);
+             } else if (map.getZoom() >= 13 && circle.getRadius() >= 7000) {
+               map.setZoom(12);
+             } else if (map.getZoom() >= 14 && circle.getRadius() >= 4500) {
+               map.setZoom(13);
+             }
+           };
+
+           const precipChanged = () => {
+             prec = $("#rain").val();
+             $("#precipValue").text(`Precipitation: ${prec} inch`);
+           };
+           const tempChanged = () => {
+             temp = $("#temp").val();
+             $("#tempValue").text(`Temperature: ${temp} F`);
+           };
+           const windChanged = () => {
+             wind = $("#wi").val();
+             $("#windValue").text(`Wind: ${wind} mph`);
+           };
+
+           const clearMarkers = () => {
+             pos = undefined;
+             posString = undefined;
+             loc = undefined;
+             temp = undefined;
+             wind = undefined;
+             prec = undefined;
+             speed = undefined;
+             stopPlayer();
+             if (!marker) {
+               return;
+             }
+             marker.setVisible(false);
+             marker = undefined;
+             map.addListener('click', addLatLng);
+             if (circle) {
+               circle.setVisible(false);
+               circle = undefined;
+             }
+           };
+
+            const predictSpread = () => {
+              if (!marker) {
+                return alert("Put a marker first!");
+            }
+            $("#loading-overlay").show();
+            $.ajax({
+                url: `/api/predict-fire?tmp=${temp}&wind=${wind}&precip=${prec}`,
+                success: function(result) {
+                    $("#loading-overlay").hide();
+                    if (!result || !result.predicted_fire_size) {
+                        return;
+                    }
+                    const maxRadius = Math.sqrt((result.predicted_fire_size * 4046.9) / Math.PI);
+                    speed = maxRadius / (result.predicted_fire_duration / 6000);
+                    document.getElementById("speed").innerHTML = "Average speed: " + (Math.round(speed * 100) / 100).toFixed(2) + " mph";
+                    addCircle(speed);
+                }
+            });
+        }
+
+        // Initialize and add the map
+        // This example creates an interactive map which constructs a polyline based on
+        // user clicks. Note that the polyline only appears once its path property
+        // contains two LatLng coordinates.
+
+
+        var map;
+        var pos;
+        var posString;
+        var loc;
+        var temp;
+        var wind;
+        var prec;
+        var player;
+
+        var circle;
+        var marker;
+        var speed;
+
+
+        function initMap() {
+            map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 5,
+                center: {
+                    lat: 39.8283,
+                    lng: -98.5795
+                }, // Center the map on Chicago, USA.
+                disableDefaultUI: true,
+                zoomControl: true,
+                scaleControl: true,
+                mapTypeControl: true
+            });
+
+            // Add a listener for the click event
+            var geocoder = new google.maps.Geocoder;
+            var infowindow = new google.maps.InfoWindow;
+            /*document.getElementById('submit').addEventListener('click', function() {
+               geocodePlaceId(geocoder, map, infowindow);
+            });*/
+            map.addListener('click', addLatLng);
+        }
+
+        function addLatLng(event) {
+
+            pos = event.latLng
+            posString = pos.lat() + ',' + pos.lng();
+
+            $("#loading-overlay").show();
+            $.ajax({
+                url: "http://api.weatherstack.com/current?access_key=7457e3cc11235c88cb6e1a56467e3754&units=f&query=" + posString,
+                success: function(result) {
+                    $("#loading-overlay").hide();
+                    loc = result.location.region;
+                    temp = result.current.temperature;
+                    wind = result.current.wind_speed;
+                    prec = result.current.precip;
+                    var contentString = '<div id="content">' +
+                        '<div id="siteNotice">' +
+                        '</div>' +
+                        '<h1 id="firstHeading" class="firstHeading">Weather at ' + loc + '</h1>' +
+                        '<div id="bodyContent">' +
+                        '<p>Temperature: ' + temp + '</p>' +
+                        '<p>Wind speed: ' + wind + '</p>' +
+                        '<p>Precipitation: ' + prec + '</p>' +
+                        '</div>' +
+                        '</div>';
+                    var infowindow = new google.maps.InfoWindow({
+                        content: contentString
+                            /*"Location: " + loc +
+                              " | Temperature: " + temp +
+                              " | Wind Speed: " + wind +
+                              " | Precipitation: " + prec*/
+                    });
+                    document.getElementById("location").innerHTML = "Location chosen: " + loc;
+                    document.getElementById("temp").value = temp;
+                    document.getElementById("wi").value = wind;
+                    document.getElementById("rain").value = 10 * prec + 1;
+                    document.getElementById("myRange").value = 0;
+
+                    precipChanged();
+                    tempChanged();
+                    windChanged();
+                    minutesChanged();
+
+                    map = new google.maps.Map(document.getElementById('map'), {
+                        center: {
+                            lat: pos.lat(),
+                            lng: pos.lng()
+                        },
+                        zoom: 14,
+                        disableDefaultUI: true,
+                        zoomControl: true,
+                        scaleControl: true,
+                        mapTypeControl: true
+                    });
+
+                    if (marker) {
+                        marker.setVisible(false);
+                    }
+                    // Add a new marker 
+                    const image = {
+                        url: "https://i.ibb.co/ncTyQ4T/fireicon.png", // url
+                        scaledSize: new google.maps.Size(30, 40), // size
+                    };
+
+                    marker = new google.maps.Marker({
+                        position: event.latLng,
+                        map,
+                        icon: image
+                    });
+                    //marker = new google.maps.Marker({
+                    //position: event.latLng,
+                    //map: map
+                    //});
+                    //infowindow.open(map, marker2);
+                }
+            });
+
+            // Add info window
+            //Add an info window for weather: 
+            //var input = document.getElementById('latlng').value;
+            //var latlngStr = input.split(',', 2);
+            var contentString = '<div id="content">' +
+                '<div id="siteNotice">' +
+                '</div>' +
+                '<h1 id="firstHeading" class="firstHeading">Weather at </h1>' +
+                '<div id="bodyContent">' +
+                '<p>Location: </p>' +
+                '<p>Temperature: </p>' +
+                '<p>Wind speed: </p>' +
+                '<p>Precipitation: </p>' +
+                '</div>' +
+                '</div>';
+
+
+        }
+
+        //Add circle ---- ADD COLOR AND RADIUS TO CIRCLE
+        function addCircle(initialRadius) {
+            if (circle) {
+                circle.setVisible(false);
+            }
+            circle = new google.maps.Circle({
+                strokeColor: '#FF0000',
+                strokeOpacity: 0.8,
+                strokeWeight: 2,
+                fillColor: '#FF0000',
+                fillOpacity: 0.35,
+                center: {
+                    lat: pos.lat(),
+                    lng: pos.lng()
+                },
+                radius: initialRadius,
+                map: map
+            });
+        }
+
+        //Add weather
+    </script>
+    <!--Load the API from the specified URL
+    * The async attribute allows the browser to render the page while the API loads
+    * The key parameter will contain your own API key (which is not needed for this tutorial)
+    * The callback parameter executes the initMap() function
+    -->
+    <script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA_T_eJXBFN_HqwKTkPQhlUHvTrg7H1NyA&callback=initMap">
+    </script>
+
+</body>
+
+</html>

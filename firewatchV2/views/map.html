@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <style>
+        /* Set the size of the div element that contains the map */
+        
+        #map {
+            height: 700px;
+            /* The height is 400 pixels */
+            width: 100%;
+            /* The width is the width of the web page */
+        }
+    </style>
+</head>
+
+<body>
+    <h3>FireWatchAI</h3>
+    <!--The div element for the map -->
+    <div id="map"></div>
+    <script>
+        // Initialize and add the map
+        // This example creates an interactive map which constructs a polyline based on
+        // user clicks. Note that the polyline only appears once its path property
+        // contains two LatLng coordinates.
+
+
+        var map;
+        var pos;
+var posString;
+var loc;
+var temp;
+var wind;
+var prec;
+
+
+        function initMap() {
+            map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 5,
+                center: {
+                    lat: 39.8283,
+                    lng: -98.5795
+                }, // Center the map on Chicago, USA.
+                disableDefaultUI: true
+            });
+
+              // Add a listener for the click event
+  var geocoder = new google.maps.Geocoder;
+  var infowindow = new google.maps.InfoWindow;
+ /*document.getElementById('submit').addEventListener('click', function() {
+    geocodePlaceId(geocoder, map, infowindow);
+ });*/
+  map.addListener('click', addLatLng);
+}
+
+
+
+        //     poly = new google.maps.Polyline({
+        //         strokeColor: '#000000',
+        //         strokeOpacity: 1.0,
+        //         strokeWeight: 3
+        //     });
+        //     poly.setMap(map);
+
+
+
+        //     // Add a listener for the click event
+        //     map.addListener('click', addLatLng);
+        // }
+
+        // Handles click events on a map
+        // Add marker 
+        function addLatLng(event) {
+            // Add a new marker 
+            const image = {
+            url: "file:///Users/hannahgonzalez/Documents/UPenn/PennApps/Github3/FirewatchAI/firewatchV2/assets/fireicon.png", // url
+            scaledSize: new google.maps.Size(30, 40), // size
+            };
+
+            const marker = new google.maps.Marker({
+            position: event.latLng,
+            map,
+            icon: image
+            });
+
+            //var marker = new google.maps.Marker({
+                //position: event.latLng,
+                //map: map
+            //});
+            // addCircle(event);
+            
+  pos = event.latLng
+  posString = pos.lat() + ',' + pos.lng();
+
+ $.ajax({
+   url: "http://api.weatherstack.com/current?access_key=7457e3cc11235c88cb6e1a56467e3754&query=" + posString,
+   success: function (result) {
+     console.log(result);
+     loc = result.location.region;
+     temp = result.current.temperature;
+     wind = result.current.wind_speed;
+     prec = result.current.precip;
+     var contentString = '<div id="content">'+
+        '<div id="siteNotice">'+
+        '</div>'+
+        '<h1 id="firstHeading" class="firstHeading">Weather at '+ loc + '</h1>' +
+        '<div id="bodyContent">'+ 
+        '<p>Temperature: ' + temp + '</p>'+
+        '<p>Wind speed: '+ wind + '</p>'+
+        '<p>Precipitation: ' + prec + '</p>'+
+        '</div>'+
+        '</div>';
+     var infowindow = new google.maps.InfoWindow({
+       content: contentString
+       /*"Location: " + loc +
+         " | Temperature: " + temp +
+         " | Wind Speed: " + wind +
+         " | Precipitation: " + prec*/
+     });
+     infowindow.open(map, marker);
+   }
+ });
+
+  // Add info window
+  //Add an info window for weather: 
+  //var input = document.getElementById('latlng').value;
+  //var latlngStr = input.split(',', 2);
+ var contentString = '<div id="content">'+
+    '<div id="siteNotice">'+
+    '</div>'+
+    '<h1 id="firstHeading" class="firstHeading">Weather at </h1>'+
+    '<div id="bodyContent">'+
+    '<p>Location: </p>' + 
+    '<p>Temperature: </p>'+
+    '<p>Wind speed: </p>'+
+    '<p>Precipitation: </p>'+
+    '</div>'+
+    '</div>';
+
+ //var geocoder = new google.maps.Geocoder;
+ //geocodeLatLng(event, geocoder, map, marker, infowindow);
+
+
+ 
+ // Add radius
+  addCircle(event, 'Receding');
+  // Add geocoder
+
+ 
+ // Add info window
+  //Add an info window for weather: 
+  //var input = document.getElementById('latlng').value;
+  //var latlngStr = input.split(',', 2);
+
+        }
+
+        //Add circle ---- ADD COLOR AND RADIUS TO CIRCLE
+        function addCircle(event) {
+            var cityCircle = new google.maps.Circle({
+                strokeColor: '#FF0000',
+                strokeOpacity: 0.8,
+                strokeWeight: 2,
+                fillColor: '#FF0000',
+                fillOpacity: 0.35,
+                center: event.latLng,
+                radius: 77685.391162,
+                map: map
+            });
+        }
+
+        //Add weather
+    </script>
+    <!--Load the API from the specified URL
+    * The async attribute allows the browser to render the page while the API loads
+    * The key parameter will contain your own API key (which is not needed for this tutorial)
+    * The callback parameter executes the initMap() function
+    -->
+    <script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA_T_eJXBFN_HqwKTkPQhlUHvTrg7H1NyA&callback=initMap">
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,2 @@
+# FirewatchAI
+Wildfire Prediction

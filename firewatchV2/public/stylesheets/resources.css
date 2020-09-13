@@ -1,0 +1,5 @@
+.navbar.scrolled {
+  background-image: url("file:///Users/zuziamatysiak/Desktop/summer/pennapps/FireWatchAI/html/fire3.jpg");
+/*  how long should the transition be*/
+  transition: background 500ms;
+}

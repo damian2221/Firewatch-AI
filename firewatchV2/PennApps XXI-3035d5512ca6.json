@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "pennapps-xxi-289302",
+  "private_key_id": "3035d5512ca633108cb8e696dd55a4bac70621da",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQDB4yDq8Iks7Ur6\nVt5OQQy83wFQP8b5aiOXEziHfmxvXK+eQEtgcIC/Oe0DuD088725DwPQC5z02wGz\nVMTR0ObH4cmYJGWEz8LjSO9cuNMYGBIsns1lQmksigFwTAR4HsChxlo7zZU+Q/K5\n7r89wEMkcLs6mbBmwXt9Qm4qB15D2U5R6p9ZdC5VCQRMbx5GMtg8DCLltqQj4Y61\nXpp0F8rHwFrV7tN3gwrAMDIzWm4yChCygkM3v7K4/vEcmNcgWeG341ms/R0tyEHC\nMO51ecEtCEQHUjD44I/AEV5PGc7VATRkKB3OVHnAOV1SQs6ta43FuS7KR8t5iXqG\nsh41CkkJAgMBAAECggEABDAjaMPBmMt24kWwV10jGOzRvtGj2wUah/PBtbaKwdSN\nFBRkNGz1sPu/tYP8KaYDr/zFqq+niCf3Z0/iUPxr0b88LynBGh9xQJ7VkcmJwMRb\nVySmf+SReEVyXsI7mfsjEtOBpTdNfRrzYiYIsj0mDiJTvwItG+kbwWLHFagTVpCQ\nS0Bm0VFE89nfbrXHmTud80JmOKAPnhR+0+9a/SgyWVmeDV8j+fMSWFDGprbR4SB5\nl7LmRSQBOwqSSClbo5B6PRa/2AnNgMZ3/SvTGxO5yM6DlQEhhCXP1QkK5+W38nYx\nUtp2s621IO1aAtpZ6htbLc5WjSiHRB0oZ30qh36Q0QKBgQD11e/dCYlQ5uVfMQC/\nX23iKeTO+RTzr/xRGTwy0vqV7F5zrB3XtKYYoJ5m7OfCInYudo8bdyPRE39v/5oT\ny77P19X838XOiF0GUwP9hXxo+f22CcdyMVRLRfW20IynXx1rhpVwak155kNQk3xd\n/lAn5oHvbE0JWefvySOXgWrjMQKBgQDJ51b/NxqrrYJ3XM+si/6X1L2nVPJ693sD\ntXbB3Z3IJEoG/jMGjM5hVkYkP+udIPEiYMCA4EYYv7AL3W1487NFIYpm8cOhdM0K\ncmWEKHbkrsV+jEaWfhFp6mizx5Z5DdZCsobMvZThOFcJKMWIZ3ImHpjEn5ZFUatZ\nY97cTMDdWQKBgQD1AqzWKpv90rIGRouNMCoO/1v44Az+toYNuc3ihZ2T8IlOVdtE\nUdo8r1BQGor9VGVe93C3me1Lglg/oorIcgcRlPbD2a6Goie8lt5iPTj6UzWGyYZL\nDFkL0IUNGBsm8Mgck3y7FmdzN4gddXC9KSpwKe+UVOcOi9l6hYgAhs6l8QKBgQCW\n372d10Kh2XWt1ngFu1NTiBD00sCj7P1KxzZoJkA6iAudcCUXFu89w2eEvRNHBo/K\nnbwcUftvkQZvx1Z/1LQ4y5iN1snWg96YmOWNPWOi/YrtRsuUt74xhI4bEeE6soFS\ns++RXXW8WwqG+KWriYm+PIzyGUMEp8PAd6XYv647eQKBgQDPzf4WR9fYNpGHKGnl\nmW5nIlKWodovcxz2OdKjGoXpICTjNe3zdfxy3CAi6v6aEOwdkFPUwuP/Xtmu3688\nW+mfbdQs6cG9yuWEx/a7QfSMF8u9zzgwaT8hMHdAIdq0kIPpAlNU1mjZ+gOWF+vt\nMI+I4ZXDxrzJsoyfPYH6ihdGBg==\n-----END PRIVATE KEY-----\n",
+  "client_email": "bigquery-wildfire@pennapps-xxi-289302.iam.gserviceaccount.com",
+  "client_id": "100721418589475308075",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/bigquery-wildfire%40pennapps-xxi-289302.iam.gserviceaccount.com"
+}
